@@ -1,0 +1,95 @@
+body{
+    font-family:Helvetica;
+    font-size:12px;
+}
+.outercontainer{
+    width: 800px;
+    margin:0 auto;
+    height: 100%;
+    color: #444;    
+}
+.searchbox{
+    margin:25px 0 0 20% ;
+    padding: 0pt 0pt 0pt 2px; 
+    width: 47.5%; 
+    height:25px; 
+    outline: medium none; 
+    overflow: hidden; 
+    z-index: 5;
+}
+.searchtitle{
+    margin:0 0 0 31%;
+}
+.searchtitle h3{
+    display:inline;
+    padding-right: 2px;
+    font-family: 'Rochester', cursive;
+    font-size:60px;
+}
+.initialsearchtext{
+    font-style:italic;
+    font-family:Helvetica;
+    color: #777;
+}
+.searchbuttonwrapper{
+    float:right;
+}
+.searchbutton{
+    background-color: #D14836;/* #F5F5F5;*/
+    color:white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px 2px 2px 2px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    height: 29px;
+    line-height: 27px;
+    margin: 22px 100px 0 0;
+    min-width: 54px;
+    padding: 0 8px;
+    text-align: center;
+    width: 15%;
+}
+#resultscontainer{
+    margin-top:50px;        
+}
+.videoresult{
+    padding:20px;
+}
+.thumb{
+    float:left;
+}
+.thumbimage{
+    height:90px;
+    width: 120px;
+    border: 1px solid lightGrey;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+#resultscontainer{
+    margin-left:65px;
+}
+.videoresult{
+    height:90px;
+}
+.videoresulttitle{
+    float:left;
+    margin-left: 10px;
+}
+h3.videoresulttitle{
+    margin: 0 0 0 12px;
+}
+p.videoresultdesc {
+    margin: 22px 0 0 12px;
+    height:50px;
+    overflow:hidden;
+    font-size: 0.916667em; /*11px/12*/
+    width:100%;
+}
+.videoresultcontent{
+    float:left;
+    width: 470px;
+}
+p.videoresultowner{
+    margin: 0 0 0 12px;
+}

@@ -1,0 +1,112 @@
+.outercontainer{
+    width: 800px;
+    margin:0 auto;
+    height: 100%;
+    color: #444;    
+}
+.searchbox{
+    margin:40px 0 0 26.5% ;
+    padding: 0pt 0pt 0pt 2px; 
+    width: 47.5%; 
+    height:25px; 
+    outline: medium none; 
+    overflow: hidden; 
+    z-index: 5;
+}
+
+.searchtitle{
+    margin:35% 0 0 31%;
+}
+.searchtitle h3{
+    display:inline;
+    padding-right: 2px;
+    font-family: 'Rochester', cursive;
+    font-size:60px;
+}
+.initialsearchtext{
+    font-style:italic;
+    font-family:Helvetica;
+    color: #777;
+}
+.searchbutton{
+    background-color: #D14836;/* #F5F5F5;*/
+    color:white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px 2px 2px 2px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    height: 29px;
+    line-height: 27px;
+    margin: 3% 43%;
+    min-width: 54px;
+    padding: 0 8px;
+    text-align: center;
+    width: 15%;
+}
+
+.videocontainer{
+    padding:5px;
+    margin: 0 auto;
+    width: 650px;
+}
+.beautifulCaptions {
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 30px;
+    font-family: "Helvetica";
+    color: #eee;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    cursor: pointer;
+}
+#captionsContainer{
+	
+	width: 700px;
+	margin: 0 auto;
+	background-color:black;
+	height: auto;
+	margin-top: 5px;
+	padding:5px;
+	
+}
+.selectedCaption{
+	border: 1px solid #ff9;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	
+}
+#previous{
+    background-color: #D14836;/* #F5F5F5;*/
+    color:white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px 2px 2px 2px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    height: 29px;
+    line-height: 27px;
+    margin-left: 47px;
+    min-width: 54px;
+    padding: 0 8px;
+    text-align: center;
+    width: 15%;
+
+
+}
+#appinionBox{
+	border: 1px solid black;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	
+	width: 220px;
+	height:100px;
+	overflow:hidden;
+	position:absolute;
+	right:10px;
+	background-color:#ff9;
+	padding:6px;
+	
+}
+#imgWrapper{
+    display:none;
+}
