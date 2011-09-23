@@ -48,21 +48,55 @@ function printVideoFeed($videoFeed)
     $count = 0;
     $results = array();
     foreach ($videoFeed as $videoEntry) {
-        $results["entries"][$count]["VideoTitle"] = $videoEntry->getVideoTitle();
-        $results["entries"][$count]["VideoId"] = $videoEntry->getVideoId();
-        $results["entries"][$count]["Updated"] = $videoEntry->getUpdated();
-        $results["entries"][$count]["Description"] = $videoEntry->getVideoDescription();
-        $results["entries"][$count]["WatchPageUrl"] = $videoEntry->getVideoWatchPageUrl();
-        $results["entries"][$count]["FlashPlayerUrl"] = $videoEntry->getFlashPlayerUrl();      
-        $results["entries"][$count]["VideoThumbnails"] = $videoEntry->getVideoThumbnails();
-        $results["entries"][$count]["VideoAuthor"] = $videoEntry->getMediaGroup()->getMediaCredit()->text;
-        //echo "Entry # " . $count . "\n";
-
-        //printVideoEntry($videoEntry);
-        //echo "\n";
-        $count++;
-    }
+        $videoId = $videoEntry->getVideoId();
+        //send video id to the  
+        if(!is_null(checkForCaptions($videoId))){
+            $results["entries"][$count]["VideoTitle"] = $videoEntry->getVideoTitle();
+            $results["entries"][$count]["VideoId"] = $videoEntry->getVideoId();
+            $results["entries"][$count]["Updated"] = $videoEntry->getUpdated();
+            $results["entries"][$count]["Description"] = $videoEntry->getVideoDescription();
+            $results["entries"][$count]["WatchPageUrl"] = $videoEntry->getVideoWatchPageUrl();
+            $results["entries"][$count]["FlashPlayerUrl"] = $videoEntry->getFlashPlayerUrl();      
+            $results["entries"][$count]["VideoThumbnails"] = $videoEntry->getVideoThumbnails();
+            $results["entries"][$count]["VideoAuthor"] = $videoEntry->getMediaGroup()->getMediaCredit()->text;
+            //echo "Entry # " . $count . "\n";
+            //printVideoEntry($videoEntry);
+            //echo "\n";
+            $count++;
+        }
+    }   
     $results["count"] = $count;
     echo '{"results":'.json_encode($results).'}';
 }
+function checkForCaptions($vId){
+    //$vId = "vsvSSGWSyxw";
+    $u = "http://video.google.com/timedtext?hl=en&v=".$vId ."&type=list";
+    //echo $u;
+    $captions = doCurl($u);
+    $xml = simplexml_load_string($captions);
+    $json = json_encode($xml);
+    $array = json_decode($json,TRUE);
+    //var_dump ($array);
+    if((is_null($array["track"])))
+        return null;
+    else{
+        $captionfilename = $array["track"]["@attributes"]["name"];
+        //echo $captionfilename;
+    }
+    return $captionfilename;
+    //echo $captions;
+}
+ function doCurl($url){
+        //echo $url;
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url );
+        curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
+        $result = curl_exec( $curl );
+        if(curl_getinfo($curl, CURLINFO_HTTP_CODE) == 404)
+            $result = 404;
+        curl_close($curl);
+        //echo $result;
+        return $result;
+}
+
 ?>

@@ -58,7 +58,7 @@
     color: #eee;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    display: inline-block;
+    display: inline;/*-block;*/
     cursor: pointer;
 }
 #captionsContainer{

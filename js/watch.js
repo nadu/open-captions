@@ -49,21 +49,22 @@ function showAppropriateCaptions(){
 	var i;
 	var len = global_full_captions.length;
 	var currTime;
-	 if(my_ytPlayer.getPlayerState() == -1){
+	if(my_ytPlayer.getPlayerState() == -1){
 	 	//chill relax
 	 	return;
-	 }
-	 if(my_ytPlayer.getPlayerState() == 1){
+	}
+        console.log("showwAppropriatecaptions getting called");
+	if(my_ytPlayer.getPlayerState() == 1){
 		// its playing video - so get the time and show appropriate captions 
 		// this will get triggered when the video starts for the very first time
 		//console.log("player state is 1");
 		currTime = my_ytPlayer.getCurrentTime();
-        console.log("getting current time after player state is 1 -", currTime," ",len);
+                console.log("getting current time after player state is 1 -", currTime," ",len);
 		//push the closest time captions to createBeautifulCaptions
 		for(i=0;i<len-1;i++){
 			console.log(global_full_captions[i].startTime,'-',currTime,'-',global_full_captions[i+1].startTime);
 			if(currTime < global_full_captions[0].startTime){ // if it has not started, call just before the first caption is scheduled
-				setTimeout(showAppropriateCaptions, (global_full_captions[0].startTime - currTime - 0.5)*1000);
+				setTimeout(showAppropriateCaptions, (global_full_captions[0].startTime - currTime )*1000);
 				return;
 			}
 			if(currTime > global_full_captions[len-1].startTime){
@@ -71,10 +72,10 @@ function showAppropriateCaptions(){
 			}
 			if(global_full_captions[i].startTime <= currTime && global_full_captions[i+1].startTime > currTime){
 				// found it 
-                console.log("now its time to create beautiful captions");
+                                console.log("now its time to create beautiful captions");
 				createBeautifulCaptions(global_full_captions[i].captions);
 				//console.log("after finding",global_full_captions[i].startTime,currTime,global_full_captions[i+1].startTime);
-				setTimeout(showAppropriateCaptions, (global_full_captions[i].startTime - global_full_captions[i+1].startTime  - 0.5)*1000);
+				setTimeout(showAppropriateCaptions, (global_full_captions[i+1].startTime - global_full_captions[i].startTime  - 0.5)*1000);
 				return;
 			}
 		}
