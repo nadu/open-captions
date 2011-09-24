@@ -34,6 +34,7 @@
     border-radius: 2px 2px 2px 2px;
     cursor: pointer;
     font-size: 13px;
+    font-family:Helvetica;
     font-weight: bold;
     height: 29px;
     line-height: 27px;
@@ -43,4 +44,17 @@
     text-align: center;
     width: 15%;
 }
-
+#about{
+    float:right;
+    cursor:pointer;
+}
+#aboutmodal{
+    display:none;
+    width:325px;
+    height:200px;
+    color:#bbb;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    font-size:15px;
+}
+#simplemodal-overlay {background-color:#000;}
+#simplemodal-container {background-color:#333; border:8px solid #444; padding:12px;}

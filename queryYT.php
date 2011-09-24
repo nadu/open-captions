@@ -43,11 +43,12 @@ function printVideoEntry($videoEntry)
     echo ' width=' . $videoThumbnail['width'] . "\n";
   }
 }
-function printVideoFeed($videoFeed)
+function printVideoFeed($videoFeed,$suggestFlag)
 {
     $count = 0;
     $results = array();
     foreach ($videoFeed as $videoEntry) {
+        //var_dump($videoEntry); exit;
         $videoId = $videoEntry->getVideoId();
         //send video id to the  
         if(!is_null(checkForCaptions($videoId))){
@@ -58,6 +59,7 @@ function printVideoFeed($videoFeed)
             $results["entries"][$count]["WatchPageUrl"] = $videoEntry->getVideoWatchPageUrl();
             $results["entries"][$count]["FlashPlayerUrl"] = $videoEntry->getFlashPlayerUrl();      
             $results["entries"][$count]["VideoThumbnails"] = $videoEntry->getVideoThumbnails();
+            $results["entries"][$count]["VideoDuration"] = $videoEntry->getVideoDuration();
             $results["entries"][$count]["VideoAuthor"] = $videoEntry->getMediaGroup()->getMediaCredit()->text;
             //echo "Entry # " . $count . "\n";
             //printVideoEntry($videoEntry);
@@ -66,6 +68,7 @@ function printVideoFeed($videoFeed)
         }
     }   
     $results["count"] = $count;
+    $results["suggested_result"] = $suggestFlag;
     echo '{"results":'.json_encode($results).'}';
 }
 function checkForCaptions($vId){

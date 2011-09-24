@@ -5,6 +5,9 @@ function showResults(results){
         len = data.results.count;         
     //console.log(JSON.parse(results));
     a = data;
+    if(data.results.suggested_result){
+        $('#resultscontainer').append("<div> Showing Suggested Results </div>");
+    }   
     //console.log(data.results.entries[0].VideoThumbnails);
     for(i=0;i<len;i++){
         //var videoId = e.target.getAttribute("id");
@@ -13,9 +16,14 @@ function showResults(results){
             index = desc.indexOf(" ",200);
             desc = desc.substring(0,index) + " ...";
         }
+        var min = Math.floor(data.results.entries[i].VideoDuration/60);
+        var seconds = data.results.entries[i].VideoDuration - min*60;
+        seconds = (seconds < 10 ? "0" : "") + seconds;
+        //console.log(index,desc,desc.length);
         var htmlstr = "";
         htmlstr = "<div class='videoresult'><div class='thumb'><a href='/open-captions/watch.html#videoId="+data.results.entries[i].VideoId+"'>";
-        htmlstr += "<img class='thumbimage' src='"+data.results.entries[i].VideoThumbnails[0].url+"'/></a></div>";
+        htmlstr += "<img class='thumbimage' src='"+data.results.entries[i].VideoThumbnails[0].url+"'/>";
+        htmlstr += "<span class='video-time'>"+min+":"+seconds+"</span></a></div>";
         htmlstr += "<div class='videoresultcontent'><h3 class='videoresulttitle'><a href='/open-captions/watch.html#videoId="+data.results.entries[i].VideoId+"'>";
         htmlstr +=  "<b>"+data.results.entries[i].VideoTitle+ "</b></a></h3>";
         htmlstr += "<p class='videoresultdesc'>"+desc+"</p>";
@@ -48,7 +56,7 @@ function showSearchResults(){
 }
 
 function init(){
-    $('#searchbox').val(window.location.hash.split('=')[1]);
+    $('#searchbox').val(decodeURIComponent(window.location.hash.split('=')[1]));
     $('.searchbutton').click(showSearchResults);
     $('#searchbox').keyup(function(evnt){
                             if(evnt.keyCode == 13)
@@ -59,7 +67,7 @@ function init(){
 function search(){
     var query = window.location.hash.split('=')[1];
     //console.log(query);
-    var url = "http://www.naduism.com/open-captions/search.php?query="+query;
+    var url = "search.php?query="+query;
     $.get(url,function(result){showResults(result);});
 
 }

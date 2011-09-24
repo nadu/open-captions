@@ -21,7 +21,7 @@ function getCaptionsFromServer(videoId){
     // do an ajax call to get the captions from server // need help with that
     //assuming you have gotten an xml response
     //var videoId = "UZHSDjtD-dg";
-    var url ="http://www.naduism.com/open-captions/transcript.php?videoId="+videoId;
+    var url ="transcript.php?videoId="+videoId;
     $.get(url, function(response){
                     //console.log(response);
 		    parseCaptions(response);
@@ -193,7 +193,7 @@ function showASL(word,i){
 
 
 function getASLPage(word){
-	var url = "http://www.naduism.com/hackdaytv/getASLPage.php?word="+word.toLowerCase();
+	var url = "/hackdaytv/getASLPage.php?word="+word.toLowerCase();
 	$.get(url,function(response){
 			if(response == "error"){
 				$('#aslWrapper').html("<div style='text-align:center; padding:20px'> <img src='http://naduism.com/hacks/ASL/sorry.gif'/> <p>this word was not found in our database </p></div>");

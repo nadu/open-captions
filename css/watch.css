@@ -58,7 +58,9 @@
     color: #eee;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    display: inline;/*-block;*/
+    display: inline-block;
+    *display: inline;/*IE7 browser hack */
+    *width:700px; /*IE7 browser hack - is there a better way*/
     cursor: pointer;
 }
 #captionsContainer{
