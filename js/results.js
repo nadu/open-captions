@@ -6,7 +6,7 @@ function showResults(results){
     //console.log(JSON.parse(results));
     a = data;
     if(data.results.suggested_result){
-        $('#resultscontainer').append("<div> Showing Suggested Results </div>");
+        $('#resultscontainer').append("<div> Showing Results for <b><i>"+data.results.suggested_result+"</b></i> instead</div>");
     }   
     //console.log(data.results.entries[0].VideoThumbnails);
     for(i=0;i<len;i++){

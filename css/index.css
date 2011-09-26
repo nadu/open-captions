@@ -14,7 +14,7 @@
     z-index: 5;
 }
 .searchtitle{
-    margin:35% 0 0 31%;
+    margin:25% 0 0 31%;
 }
 .searchtitle h3{
     display:inline;
@@ -45,7 +45,7 @@
     width: 15%;
 }
 #about{
-    float:right;
+    margin-left:88%; 
     cursor:pointer;
 }
 #aboutmodal{

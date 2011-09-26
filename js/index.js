@@ -6,6 +6,9 @@ function clearInitialSearchText(e){
 }
 function showSearchResults(){
     var query = $('#searchbox').val();
+    if(query == 'Search for closed captioned videos')
+        query = "";
+
     window.location = "http://www.naduism.com/open-captions/results.html#query="+query;
 }
 function init(){

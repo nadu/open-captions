@@ -22,19 +22,19 @@ function searchAndPrint($searchTerms = 'sesame street')
     //$videoFeed = $yt->getVideoFeed("http://gdata.youtube.com/feeds/api/videos?orderby=relevance&safeSearch=moderate&q=sesame+street");
     $videoFeed = $yt->getVideoFeed($query->getQueryUrl(2));
     $links = $videoFeed->getLink();
-    $suggestFlag = false;
+    $suggestFlag = null;
     foreach($links as $link){
         if($link->getRel() == 'http://schemas.google.com/g/2006#spellcorrection'){
             $videoFeed = $yt->getVideoFeed($link->getHref());
-            //print_r($links[1]);
-            $suggestFlag = true;
+            //print_r($link->getTitle());
+            $suggestFlag = $link->getTitle();
             break;
         }
     }
     //if($links[1]){
         
     //} 
-    printVideoFeed($videoFeed, $suggestFlag);//'Search results for: ' . $searchTerms);
+   printVideoFeed($videoFeed, $suggestFlag);//'Search results for: ' . $searchTerms);
 }
 //searchAndPrint("cats, cc");
 ?>     

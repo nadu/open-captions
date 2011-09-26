@@ -7,10 +7,10 @@ function onYouTubePlayerReady(videoId){
     //my_ytPlayer.playVideo();
 	
     if(my_ytPlayer.addEventListener){
-        console.log("add event listener");
+        //console.log("add event listener");
         my_ytPlayer.addEventListener("onStateChange", "showAppropriateCaptions");
     }else if(my_ytPlayer.attachEvent){
-        console.log("attach event");
+        //console.log("attach event");
         my_ytPlayer.attachEvent("onStateChange", "showAppropriateCaptions");
     }
 	
@@ -32,7 +32,7 @@ var global_full_captions = new Array();
 function parseCaptions(data){
      
     var ctr = 0;
-    console.log(typeof(data));
+    //console.log(typeof(data));
 	 $(data).find("text").each(function() {
 	 		global_full_captions[ctr] = {};
 	 		global_full_captions[ctr].startTime = parseFloat($(this).attr('start'));
@@ -40,7 +40,7 @@ function parseCaptions(data){
 	 		global_full_captions[ctr].captions = $(this).text();
 			ctr++;
 	 });
-	 console.log(global_full_captions[0].captions,global_full_captions[0].startTime);
+	 //console.log(global_full_captions[0].captions,global_full_captions[0].startTime);
 	 // get the player state
 	
 }
@@ -53,16 +53,16 @@ function showAppropriateCaptions(){
 	 	//chill relax
 	 	return;
 	}
-        console.log("showwAppropriatecaptions getting called");
+        //console.log("showwAppropriatecaptions getting called");
 	if(my_ytPlayer.getPlayerState() == 1){
 		// its playing video - so get the time and show appropriate captions 
 		// this will get triggered when the video starts for the very first time
 		//console.log("player state is 1");
 		currTime = my_ytPlayer.getCurrentTime();
-                console.log("getting current time after player state is 1 -", currTime," ",len);
+                //console.log("getting current time after player state is 1 -", currTime," ",len);
 		//push the closest time captions to createBeautifulCaptions
 		for(i=0;i<len-1;i++){
-			console.log(global_full_captions[i].startTime,'-',currTime,'-',global_full_captions[i+1].startTime);
+			//console.log(global_full_captions[i].startTime,'-',currTime,'-',global_full_captions[i+1].startTime);
 			if(currTime < global_full_captions[0].startTime){ // if it has not started, call just before the first caption is scheduled
 				setTimeout(showAppropriateCaptions, (global_full_captions[0].startTime - currTime )*1000);
 				return;
@@ -72,7 +72,7 @@ function showAppropriateCaptions(){
 			}
 			if(global_full_captions[i].startTime <= currTime && global_full_captions[i+1].startTime > currTime){
 				// found it 
-                                console.log("now its time to create beautiful captions");
+                                //console.log("now its time to create beautiful captions");
 				createBeautifulCaptions(global_full_captions[i].captions);
 				//console.log("after finding",global_full_captions[i].startTime,currTime,global_full_captions[i+1].startTime);
 				setTimeout(showAppropriateCaptions, (global_full_captions[i+1].startTime - global_full_captions[i].startTime  - 0.5)*1000);
@@ -142,7 +142,7 @@ function createBeautifulCaptionElements(a){
 																}
 													}(a[i],i)));
 	}
-	console.log(beautifulCaptionsSpan);
+	//console.log(beautifulCaptionsSpan);
 	return beautifulCaptionsSpan;
 }
 	
@@ -193,11 +193,17 @@ function showASL(word,i){
 
 
 function getASLPage(word){
-	var url = "/hackdaytv/getASLPage.php?word="+word.toLowerCase();
+	var url = "ASL.php?word="+encodeURI(word.toLowerCase());
+        console.log(url);
 	$.get(url,function(response){
+                        //console.log(response);
 			if(response == "error"){
 				$('#aslWrapper').html("<div style='text-align:center; padding:20px'> <img src='http://naduism.com/hacks/ASL/sorry.gif'/> <p>this word was not found in our database </p></div>");
-					}
+			}
+                        else if(response != "found"){
+                                 $('#aslWrapper').html("<div style='text-align:center; padding:20px'> <img src='"+response+"'/> </div>");
+
+                        }
 			});
 				
 }
