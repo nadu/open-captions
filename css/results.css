@@ -26,6 +26,12 @@ body{
     font-family: 'Rochester', cursive;
     font-size:60px;
 }
+.superscript{
+    font-size:8px;
+    font-family:Helvetica;
+    margin-left: -15px;
+}
+
 .initialsearchtext{
     font-style:italic;
     font-family:Helvetica;

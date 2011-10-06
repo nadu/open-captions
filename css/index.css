@@ -56,5 +56,10 @@
     font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
     font-size:15px;
 }
+.superscript{
+    font-size:8px;
+    font-family:Helvetica;
+    margin-left: -15px;
+}
 #simplemodal-overlay {background-color:#000;}
 #simplemodal-container {background-color:#333; border:8px solid #444; padding:12px;}

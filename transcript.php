@@ -11,7 +11,7 @@
     	    echo "error"; 
 	    exit;
 	}
-	$result = utf8_encode($result);
+	//$result = utf8_encode($result);
 	echo ($result);
 	
     }

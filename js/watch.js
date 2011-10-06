@@ -40,9 +40,8 @@ function parseCaptions(data){
 	 		global_full_captions[ctr].captions = $(this).text();
 			ctr++;
 	 });
-	 //console.log(global_full_captions[0].captions,global_full_captions[0].startTime);
-	 // get the player state
-	
+	// console.log(global_full_captions[0].captions,global_full_captions[0].startTime);
+
 }
 
 function showAppropriateCaptions(){
@@ -61,21 +60,23 @@ function showAppropriateCaptions(){
 		currTime = my_ytPlayer.getCurrentTime();
                 //console.log("getting current time after player state is 1 -", currTime," ",len);
 		//push the closest time captions to createBeautifulCaptions
-		for(i=0;i<len-1;i++){
-			//console.log(global_full_captions[i].startTime,'-',currTime,'-',global_full_captions[i+1].startTime);
+		for(i=0;i<len;i++){
+			//console.log(global_full_captions[i].startTime,'-',currTime,'-'/*,global_full_captions[i+1].startTime*/, global_full_captions[i].startTime + global_full_captions[i].duration);
 			if(currTime < global_full_captions[0].startTime){ // if it has not started, call just before the first caption is scheduled
 				setTimeout(showAppropriateCaptions, (global_full_captions[0].startTime - currTime )*1000);
 				return;
 			}
-			if(currTime > global_full_captions[len-1].startTime){
-				// it has ended, no more captions to show
+			if(currTime > global_full_captions[len-1].startTime + global_full_captions[len-1].duration){
+			    // it has ended, no more captions to show
+                            $('.myCaptionSpan').html("");
+                            //$("#previous").attr("disabled","disabled");
 			}
-			if(global_full_captions[i].startTime <= currTime && global_full_captions[i+1].startTime > currTime){
+			if(global_full_captions[i].startTime <= currTime && (global_full_captions[i].startTime + global_full_captions[i].duration) > currTime){
 				// found it 
                                 //console.log("now its time to create beautiful captions");
 				createBeautifulCaptions(global_full_captions[i].captions);
 				//console.log("after finding",global_full_captions[i].startTime,currTime,global_full_captions[i+1].startTime);
-				setTimeout(showAppropriateCaptions, (global_full_captions[i+1].startTime - global_full_captions[i].startTime  - 0.5)*1000);
+				setTimeout(showAppropriateCaptions, Math.abs(global_full_captions[i].duration  - 0.5)*1000);
 				return;
 			}
 		}
@@ -137,10 +138,9 @@ function createBeautifulCaptionElements(a){
 		//document.getElementsByClassName('myCaptionSpan')[0].appendChild(beautifulCaptionsSpan[i]);
 		$('.myCaptionSpan').append(beautifulCaptionsSpan[i]);
 		$('#beautifulCaptions'+i).click((function(w,i){
-														return function(){
-																	showASL(w,i);
-																}
-													}(a[i],i)));
+                                                    return function(){
+						        showASL(w,i);
+						    }}(a[i],i)));
 	}
 	//console.log(beautifulCaptionsSpan);
 	return beautifulCaptionsSpan;
@@ -161,7 +161,7 @@ function showASL(word,i){
 	my_ytPlayer.pauseVideo();		
 	addSelectedClass(i);
 	
-	word = word.replace(/[\.\!\?\,]/g,"");
+	word = word.replace(/[\.\!\?\,\)\(\]\[]/g,"");
 	getASLPage(word);
 	document.getElementById("imgWrapper").innerHTML = "<div id='aslWrapper' style='background-color:white; opacity=1; width: 240px; height:200px; right:10px; position:fixed; background-position:center;background-repeat:no-repeat; border-radius: 6px;-moz-border-radius: 6px; z-index:1000; border: 2px black solid;'><div style='width:240px; height:200px; text-align:center'><iframe id='iframe-0' style='margin-left:-10px;' class=' iframe-delta-0' height='180' width='220' frameborder='0' scrolling='no' name='iframe-0' src='http://cats.gatech.edu/cats/MySignLink/dictionary/html/pages/"+word.toLowerCase()+".htm'/></div></div>";
 				
@@ -194,7 +194,7 @@ function showASL(word,i){
 
 function getASLPage(word){
 	var url = "ASL.php?word="+encodeURI(word.toLowerCase());
-        console.log(url);
+        //console.log(url);
 	$.get(url,function(response){
                         //console.log(response);
 			if(response == "error"){
