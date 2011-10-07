@@ -60,6 +60,11 @@ function showAppropriateCaptions(){
 		currTime = my_ytPlayer.getCurrentTime();
                 //console.log("getting current time after player state is 1 -", currTime," ",len);
 		//push the closest time captions to createBeautifulCaptions
+                
+                // hacky way of handling when to show and hide the captions and the previous button. Have to find a better way to do it
+                $('.myCaptionSpan').show();
+                $('#previous').show();
+
 		for(i=0;i<len;i++){
 			//console.log(global_full_captions[i].startTime,'-',currTime,'-'/*,global_full_captions[i+1].startTime*/, global_full_captions[i].startTime + global_full_captions[i].duration);
 			if(currTime < global_full_captions[0].startTime){ // if it has not started, call just before the first caption is scheduled
@@ -68,15 +73,23 @@ function showAppropriateCaptions(){
 			}
 			if(currTime > global_full_captions[len-1].startTime + global_full_captions[len-1].duration){
 			    // it has ended, no more captions to show
-                            $('.myCaptionSpan').html("");
-                            //$("#previous").attr("disabled","disabled");
+                            $('.myCaptionSpan').hide();
+                            //console.log("run after the captions have ended");
+                            $("#previous").removeClass('enabled');
+                            $("#previous").attr("disabled",true);
+ 
 			}
 			if(global_full_captions[i].startTime <= currTime && (global_full_captions[i].startTime + global_full_captions[i].duration) > currTime){
-				// found it 
+				// found it
+                                if(!$('#previous').hasClass('enabled')){
+                                    $("#previous").addClass('enabled'); 
+                                    $("#previous").attr("disabled",false);
+                                }
+                                
                                 //console.log("now its time to create beautiful captions");
 				createBeautifulCaptions(global_full_captions[i].captions);
 				//console.log("after finding",global_full_captions[i].startTime,currTime,global_full_captions[i+1].startTime);
-				setTimeout(showAppropriateCaptions, Math.abs(global_full_captions[i].duration  - 0.5)*1000);
+				setTimeout(showAppropriateCaptions, Math.abs(global_full_captions[i].duration  - 0.1)*1000);
 				return;
 			}
 		}
@@ -120,38 +133,30 @@ function createBeautifulCaptions(captions){
 }
 	
 function createBeautifulCaptionElements(a){
-	var len = a.length,
-		i,
+    var len = a.length,
+        i,
 	beautifulCaptionsSpan = new Array();
-	for(i=0;i<len;i++){
-
-		beautifulCaptionsSpan[i] = document.createElement('div');
-		beautifulCaptionsSpan[i].innerHTML = a[i];
-		beautifulCaptionsSpan[i].className += " " + 'beautifulCaptions';
-		beautifulCaptionsSpan[i].id =  'beautifulCaptions' + i;
-		/*beautifulCaptionsSpan[i].addEventListener('click', (function(w,i){
-										return function(){
-											   showASL(w,i);
-										   }
-										}(a[i],i)));
-		*/																
-		//document.getElementsByClassName('myCaptionSpan')[0].appendChild(beautifulCaptionsSpan[i]);
-		$('.myCaptionSpan').append(beautifulCaptionsSpan[i]);
-		$('#beautifulCaptions'+i).click((function(w,i){
-                                                    return function(){
-						        showASL(w,i);
-						    }}(a[i],i)));
+    for(i=0;i<len;i++){
+        beautifulCaptionsSpan[i] = document.createElement('span');
+	beautifulCaptionsSpan[i].innerHTML = a[i];
+	beautifulCaptionsSpan[i].className += " " + 'beautifulCaptions';
+	beautifulCaptionsSpan[i].id =  'beautifulCaptions' + i;
+	$('.myCaptionSpan').append(beautifulCaptionsSpan[i]);
+	$('#beautifulCaptions'+i).click((function(w,i){
+                                             return function(){
+                				        showASL(w,i);
+		        		    }}(a[i],i)));
 	}
 	//console.log(beautifulCaptionsSpan);
-	return beautifulCaptionsSpan;
+    return beautifulCaptionsSpan;
 }
 	
 function addSelectedClass(i){
-	$('.beautifulCaptions').each(function() {
-		if($(this).hasClass("selectedCaption"))
-			$(this).removeClass("selectedCaption");
+    $('.beautifulCaptions').each(function() {
+        if($(this).hasClass("selectedCaption"))
+	    $(this).removeClass("selectedCaption");
 	});
-	$('#beautifulCaptions'+i).addClass("selectedCaption");
+    $('#beautifulCaptions'+i).addClass("selectedCaption");
 }
 
 var showASLTimer;
@@ -161,7 +166,7 @@ function showASL(word,i){
 	my_ytPlayer.pauseVideo();		
 	addSelectedClass(i);
 	
-	word = word.replace(/[\.\!\?\,\)\(\]\[]/g,"");
+	word = word.replace(/[\.\!\?\,\)\(\]\[\-\!]/g,"");
 	getASLPage(word);
 	document.getElementById("imgWrapper").innerHTML = "<div id='aslWrapper' style='background-color:white; opacity=1; width: 240px; height:200px; right:10px; position:fixed; background-position:center;background-repeat:no-repeat; border-radius: 6px;-moz-border-radius: 6px; z-index:1000; border: 2px black solid;'><div style='width:240px; height:200px; text-align:center'><iframe id='iframe-0' style='margin-left:-10px;' class=' iframe-delta-0' height='180' width='220' frameborder='0' scrolling='no' name='iframe-0' src='http://cats.gatech.edu/cats/MySignLink/dictionary/html/pages/"+word.toLowerCase()+".htm'/></div></div>";
 				
@@ -179,11 +184,11 @@ function showASL(word,i){
 	document.getElementById("aslWrapper").appendChild(loadImg);
 	
 	var loadTimer = setTimeout(function(){
-								var loadImg = document.getElementById('loadImg');
-								if($("#aslWrapper").length && loadImg)
-									document.getElementById("aslWrapper").removeChild(loadImg); 
-								document.getElementById('iframe-0').style.display = 'inline';	
-						},1000);
+                                        var loadImg = document.getElementById('loadImg');
+					if($("#aslWrapper").length && loadImg)
+					    document.getElementById("aslWrapper").removeChild(loadImg); 
+					    document.getElementById('iframe-0').style.display = 'inline';	
+					},1000);
 	showASLTimer = setTimeout(function(){
 					document.getElementById('imgWrapper').style.display = 'none'; 
 					$('#beautifulCaptions'+i).removeClass("selectedCaption");
@@ -193,17 +198,15 @@ function showASL(word,i){
 
 
 function getASLPage(word){
-	var url = "ASL.php?word="+encodeURI(word.toLowerCase());
-        //console.log(url);
-	$.get(url,function(response){
+    var url = "ASL.php?word="+encodeURI(word.toLowerCase());
+    console.log(url);
+    $.get(url,function(response){
                         //console.log(response);
 			if(response == "error"){
-				$('#aslWrapper').html("<div style='text-align:center; padding:20px'> <img src='http://naduism.com/hacks/ASL/sorry.gif'/> <p>this word was not found in our database </p></div>");
+			    $('#aslWrapper').html("<div style='text-align:center; padding:20px'> <img src='http://naduism.com/hacks/ASL/sorry.gif'/> <p>this word was not found in our database </p></div>");
 			}
                         else if(response != "found"){
                                  $('#aslWrapper').html("<div style='text-align:center; padding:20px'> <img src='"+response+"'/> </div>");
-
                         }
-			});
-				
+	    });
 }

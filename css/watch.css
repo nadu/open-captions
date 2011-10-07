@@ -53,17 +53,37 @@
 .beautifulCaptions {
     padding-left: 3px;
     padding-right: 3px;
-    font-size: 30px;
+    /*font-size: 30px;
     font-family: "Helvetica";
     color: #eee;
     -moz-border-radius: 4px;
-    border-radius: 4px;
+    border-radius: 4px;*/
     display: inline-block;
     *display: inline;/*IE7 browser hack */
-    *width:700px; /*IE7 browser hack - is there a better way*/
+    /**width:700px; /*IE7 browser hack - is there a better way*/
     cursor: pointer;
 }
-#captionsContainer{
+.myCaptionSpan{
+    display: block;
+    letter-spacing: .06em;
+    line-height: 1.4em;
+    text-shadow: 0 2px 1px black,-1px 3px 1px black,-2px 2px 1px black,-2px 1px 1px black,-2px 0 1px black,2px 2px 1px black,1px 2px 1px black,0px -2px 1px black,2px -2px 1px black,-2px -1px 1px black,-1px -3px 1px black,-3px -2px 1px black;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    font-weight: normal;
+    background: url("../images/caption_bg.png");
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 10px 3px;
+
+    width:400px;
+    position:relative;
+    top:-133px;
+    left:200px;
+}
+/*#captionsContainer{
 	
 	width: 700px;
 	margin: 0 auto;
@@ -72,42 +92,34 @@
 	margin-top: 5px;
 	padding:5px;
 	
-}
+}*/
 .selectedCaption{
 	border: 1px solid #ff9;
 	-moz-border-radius: 4px;
 	border-radius: 4px;	
 }
 #previous{
-    background-color: #D14836;/* #F5F5F5;*/
-    color:white;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 2px 2px 2px 2px;
     cursor: pointer;
     font-size: 11px;
     font-weight: bold;
-    height: 29px;
-    line-height: 27px;
+    height: 18px/*29px*/;
+    line-height: 14px/*27px*/;
     margin-left: 47px;
     min-width: 54px;
     padding: 0 8px;
     text-align: center;
     width: 15%;
 
-
+    position:relative;
+    top:-34px;
+    left:333px;
+    display:none;
 }
-#appinionBox{
-	border: 1px solid black;
-	-moz-border-radius: 4px;
-	border-radius: 4px;	
-	width: 220px;
-	height:100px;
-	overflow:hidden;
-	position:absolute;
-	right:10px;
-	background-color:#ff9;
-	padding:6px;
-	
+#previous.enabled{
+    background-color: #D14836;/* #F5F5F5;*/
+    color:white;
 }
 #imgWrapper{
     display:none;
