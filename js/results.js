@@ -4,7 +4,11 @@ function showResults(results){
         index,
         len = data.results.count;         
     //console.log(JSON.parse(results));
-    a = data;
+    //a = data;
+    if(len == 0){
+        $('#resultscontainer').append("<div> No Results found for <b><i>"+$('#searchbox').val()+"</b></i> </div>");
+        return;
+    }
     if(data.results.suggested_result){
         $('#resultscontainer').append("<div> Showing Results for <b><i>"+data.results.suggested_result+"</b></i> instead</div>");
     }   

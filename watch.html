@@ -34,7 +34,7 @@
 		var videoId = window.location.hash.split('=')[1]; 
 		var params = { allowScriptAccess: "always" ,wmode:"transparent"};//transparent value to wmode helps to overlay captions on the flash video
 		var atts = { id:videoId}
-		swfobject.embedSWF("http://www.youtube.com/e/"+videoId+"?enablejsapi=1&playerapiid="+videoId,
+		swfobject.embedSWF("http://www.youtube.com/e/"+videoId+"?&cc_load_policy=0&enablejsapi=1&playerapiid="+videoId,
 						   "ytapiplayer", "650", "500", "8", null, null, params, atts);
 
 	  </script>

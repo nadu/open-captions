@@ -9,7 +9,7 @@
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-25963245-1']);
+  _gaq.push(['_setAccount', 'UA-a5963245-1']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -19,12 +19,26 @@
   })();
 
 </script>
+<!-- Update your html tag to include the itemscope and itemtype attributes -->
+<html itemscope itemtype="http://schema.org/Product">
+
+<!-- Add the following three tags inside head -->
+<meta itemprop="name" content="Open Captions">
+<meta itemprop="description" content="Open Captions gives the viewer of a YouTube video the ability to select a word in the closed captions and view the American Sign Language representation of the word">
 
 </head>
 
 <body onload='init();'>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class='header'>
-        <a href="http://www.naduism.com/?p=108" id='about'>About Open Captions</a>
 </div>
 
 <div class='outercontainer'>
@@ -39,6 +53,29 @@
         </div>
 
     </div>
+</div>
+<div class='footer'>
+<div class='footercontent'>
+    <div class='social'>
+<!-- Place this tag where you want the +1 button to render -->
+    <g:plusone size="medium" annotation="none"></g:plusone>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out open-captions.com!" data-count="none" data-via="naduisms">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    <div class='fb'><div class="fb-like" data-href="open-captions.com" data-send="false" data-layout="button_count" data-width="0" data-show-faces="false" data-font="arial"></div></div>
+   </div>
+
+    <div class='info'>
+        <a href="http://www.naduism.com/?p=108" id='about'>About Open-Captions</a>
+        <a href="mailto:narayanan.ramakrishnan@gmail.com">Contact</a>
+    </div>
+</div>
+<!-- Place this render call where appropriate -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
 </div>
 </body>
 </html>

@@ -40,7 +40,8 @@ function parseCaptions(data){
 	 		global_full_captions[ctr].captions = $(this).text();
 			ctr++;
 	 });
-	// console.log(global_full_captions[0].captions,global_full_captions[0].startTime);
+
+	//console.log(global_full_captions);//[0].captions,global_full_captions[0].startTime);
 
 }
 
@@ -65,8 +66,8 @@ function showAppropriateCaptions(){
                 $('.myCaptionSpan').show();
                 $('#previous').show();
 
-		for(i=0;i<len;i++){
-			//console.log(global_full_captions[i].startTime,'-',currTime,'-'/*,global_full_captions[i+1].startTime*/, global_full_captions[i].startTime + global_full_captions[i].duration);
+		for(i=0;i<len-1;i++){
+		//	console.log(global_full_captions[i].startTime,'-',currTime,'-',global_full_captions[i+1].startTime, global_full_captions[i].startTime + global_full_captions[i].duration);
 			if(currTime < global_full_captions[0].startTime){ // if it has not started, call just before the first caption is scheduled
 				setTimeout(showAppropriateCaptions, (global_full_captions[0].startTime - currTime )*1000);
 				return;
@@ -79,19 +80,22 @@ function showAppropriateCaptions(){
                             $("#previous").attr("disabled",true);
  
 			}
-			if(global_full_captions[i].startTime <= currTime && (global_full_captions[i].startTime + global_full_captions[i].duration) > currTime){
+			if((global_full_captions[i].startTime <= currTime && (global_full_captions[i+1].startTime > currTime))){
 				// found it
                                 if(!$('#previous').hasClass('enabled')){
                                     $("#previous").addClass('enabled'); 
                                     $("#previous").attr("disabled",false);
                                 }
-                                
                                 //console.log("now its time to create beautiful captions");
 				createBeautifulCaptions(global_full_captions[i].captions);
 				//console.log("after finding",global_full_captions[i].startTime,currTime,global_full_captions[i+1].startTime);
-				setTimeout(showAppropriateCaptions, Math.abs(global_full_captions[i].duration  - 0.1)*1000);
+                                //setTimeout(function(){$('.myCaptionSpan').hide();},global_full_captions[i].duration*1000);
+        			setTimeout(showAppropriateCaptions, 
+                                            Math.abs(global_full_captions[i+1].startTime - global_full_captions[i].startTime)*1000);
+                                        
 				return;
 			}
+                                
 		}
 	 }
 	 
@@ -199,7 +203,7 @@ function showASL(word,i){
 
 function getASLPage(word){
     var url = "ASL.php?word="+encodeURI(word.toLowerCase());
-    console.log(url);
+    //console.log(url);
     $.get(url,function(response){
                         //console.log(response);
 			if(response == "error"){
