@@ -25,10 +25,10 @@ function showResults(results){
         seconds = (seconds < 10 ? "0" : "") + seconds;
         //console.log(index,desc,desc.length);
         var htmlstr = "";
-        htmlstr = "<div class='videoresult'><div class='thumb'><a href='/open-captions/watch.html#videoId="+data.results.entries[i].VideoId+"'>";
+        htmlstr = "<div class='videoresult'><div class='thumb'><a href='watch.html#videoId="+data.results.entries[i].VideoId+"'>";
         htmlstr += "<img class='thumbimage' src='"+data.results.entries[i].VideoThumbnails[0].url+"'/>";
         htmlstr += "<span class='video-time'>"+min+":"+seconds+"</span></a></div>";
-        htmlstr += "<div class='videoresultcontent'><h3 class='videoresulttitle'><a href='/open-captions/watch.html#videoId="+data.results.entries[i].VideoId+"'>";
+        htmlstr += "<div class='videoresultcontent'><h3 class='videoresulttitle'><a href='watch.html#videoId="+data.results.entries[i].VideoId+"'>";
         htmlstr +=  "<b>"+data.results.entries[i].VideoTitle+ "</b></a></h3>";
         htmlstr += "<p class='videoresultdesc'>"+desc+"</p>";
         htmlstr += "<p class='videoresultowner'> by <a href='http://www.youtube.com/user/"+ data.results.entries[i].VideoAuthor+"'>"+ data.results.entries[i].VideoAuthor+"</a></p></div></div>";
@@ -55,7 +55,7 @@ function showResults(results){
 var a;
 function showSearchResults(){
     var query = $('#searchbox').val();
-    window.location.href = "http://www.naduism.com/open-captions/results.html#query="+query;
+    window.location.href = "results.html#query="+query;
     window.location.reload();
 }
 
