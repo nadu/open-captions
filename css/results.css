@@ -129,4 +129,43 @@ p.videoresultowner{
     top:-21px;
     right:-85px;
 }
+.footer{
+    position: fixed;
+    height: 26px;
+    width: 99%;
+    bottom: 0px;
+    z-index: 3;
+    background-color: #EBEBEB;
+    padding-top: 3px;
+}
+.footercontent{
+    bottom: 0px;
+    height: 25px;
+    position: absolute;
+    width:100%;
+    font-family:Arial;
+    font-size: 1.1667em; /*14/16*/
+    padding-bottom:3px;
+}
+.social{
+    float:left;
+    padding-left:20px;
+    padding-top:3px;
+    margin: 0px 10px;
+}
+.social .fb{
+    display:inline-block;
+    vertical-align:4px;
+}
+.info a{
+    color: #666;
+    margin: 0px 10px;
+    text-decoration:none;
+}
+.info{
+    float:right;
+    margin-right:20px;
+    padding-top:3px;
+    
+}
 
