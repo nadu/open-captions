@@ -6,7 +6,8 @@ function showResults(results){
     //console.log(JSON.parse(results));
     //a = data;
     if(len == 0){
-        $('#resultscontainer').append("<div> No Results found for <b><i>"+$('#searchbox').val()+"</b></i> </div>");
+        //console.log($('#searchbox'));
+        $('#resultscontainer').html("<div> No Results found for <b><i>"+$('#searchbox').val()+"</b></i> </div>");
         return;
     }
     if(data.results.suggested_result){
@@ -33,26 +34,9 @@ function showResults(results){
         htmlstr += "<p class='videoresultdesc'>"+desc+"</p>";
         htmlstr += "<p class='videoresultowner'> by <a href='http://www.youtube.com/user/"+ data.results.entries[i].VideoAuthor+"'>"+ data.results.entries[i].VideoAuthor+"</a></p></div></div>";
         $('#resultscontainer').append(htmlstr);
-        /*
-        $('<div/>', {
-            id: data.results.entries[i].VideoId,
-            click: function(e){
-                //alert('Foo'+e.target.getAttribute("id")+' has been clicked!');
-                var videoId = e.target.getAttribute("id");
-                window.location.href = "http://www.naduism.com/open-captions/showvideo.html#videoId="+videoId;
-                
-            },
-            class: 'video',
-            css: {
-                height:"90px",
-                background: "url('"+data.results.entries[i].VideoThumbnails[0].url+"') no-repeat"
-            },
-            html: "Title:" + data.results.entries[i].VideoTitle + " Description :" +data.results.entries[i].Description
-        }).appendTo($('#resultscontainer'));
-        */
     }
 }
-var a;
+//var a;
 function showSearchResults(){
     var query = $('#searchbox').val();
     window.location.href = "results.html#query="+query;
@@ -70,8 +54,15 @@ function init(){
 }
 function search(){
     var query = window.location.hash.split('=')[1];
-    //console.log(query);
-    var url = "search.php?query="+query;
+    var url = "search.php?query="+query+"&start_index=1";
+    $.get(url,function(result){showResults(result);});
+    url = "search.php?query="+query+"&start_index=9";
+    $.get(url,function(result){showResults(result);});
+    url = "search.php?query="+query+"&start_index=17";
+    $.get(url,function(result){showResults(result);});
+    url = "search.php?query="+query+"&start_index=25";
+    $.get(url,function(result){showResults(result);});
+    url = "search.php?query="+query+"&start_index=33";
     $.get(url,function(result){showResults(result);});
 
 }

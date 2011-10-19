@@ -3,6 +3,7 @@ function onYouTubePlayerReady(videoId){
     // get the captions!
     getCaptionsFromServer(videoId);
     my_ytPlayer = $('#'+videoId)[0];
+    $('#backtosearch').show();
     //console.log(my_ytPlayer);
     //my_ytPlayer.playVideo();
 	
@@ -66,7 +67,7 @@ function showAppropriateCaptions(){
                 $('.myCaptionSpan').show();
                 $('#previous').show();
 
-		for(i=0;i<len-1;i++){
+		for(i=0;i<len;i++){
 		//	console.log(global_full_captions[i].startTime,'-',currTime,'-',global_full_captions[i+1].startTime, global_full_captions[i].startTime + global_full_captions[i].duration);
 			if(currTime < global_full_captions[0].startTime){ // if it has not started, call just before the first caption is scheduled
 				setTimeout(showAppropriateCaptions, (global_full_captions[0].startTime - currTime )*1000);
@@ -80,7 +81,22 @@ function showAppropriateCaptions(){
                             $("#previous").attr("disabled",true);
  
 			}
-			if((global_full_captions[i].startTime <= currTime && (global_full_captions[i+1].startTime > currTime))){
+		 	if((global_full_captions[len-1].startTime <= currTime && ((global_full_captions[len-1].startTime + global_full_captions[i].duration) > currTime))){
+				//console.log("last caption"); 
+                                if(!$('#previous').hasClass('enabled')){
+                                    $("#previous").addClass('enabled'); 
+                                    $("#previous").attr("disabled",false);
+                                }
+                                //console.log("now its time to create beautiful captions");
+				createBeautifulCaptions(global_full_captions[len-1].captions);
+				//console.log("after finding",global_full_captions[i].startTime,currTime,global_full_captions[i+1].startTime);
+                                //setTimeout(function(){$('.myCaptionSpan').hide();},global_full_captions[i].duration*1000);
+        			setTimeout(showAppropriateCaptions,global_full_captions[len-1].duration*1000);
+                                        
+				return;
+			}
+ 
+                        if((global_full_captions[i].startTime <= currTime && (global_full_captions[i+1].startTime > currTime))){
 				// found it
                                 if(!$('#previous').hasClass('enabled')){
                                     $("#previous").addClass('enabled'); 
@@ -95,7 +111,7 @@ function showAppropriateCaptions(){
                                         
 				return;
 			}
-                                
+        
 		}
 	 }
 	 
@@ -103,12 +119,12 @@ function showAppropriateCaptions(){
 
 function init(){
     $('#previous').click(function(){getPreviousCaption();});
+    $('#backtosearch').click(function(){window.history.back();});// is there a better way to do it
 }
 	
 function getPreviousCaption(){
 	var prevCaptionsArray = prevCaptions.split(" ");
 	$('.myCaptionSpan').html("");
-	//document.getElementsByClassName('myCaptionSpan')[0].innerHTML  = "" ;
 	createBeautifulCaptionElements(prevCaptionsArray);
 	my_ytPlayer.pauseVideo();
 	//console.log(prevCaptionsArray);
@@ -172,12 +188,14 @@ function showASL(word,i){
 	
 	word = word.replace(/[\.\!\?\,\)\(\]\[\-\!]/g,"");
 	getASLPage(word);
-	document.getElementById("imgWrapper").innerHTML = "<div id='aslWrapper' style='background-color:white; opacity=1; width: 240px; height:200px; right:10px; position:fixed; background-position:center;background-repeat:no-repeat; border-radius: 6px;-moz-border-radius: 6px; z-index:1000; border: 2px black solid;'><div style='width:240px; height:200px; text-align:center'><iframe id='iframe-0' style='margin-left:-10px;' class=' iframe-delta-0' height='180' width='220' frameborder='0' scrolling='no' name='iframe-0' src='http://cats.gatech.edu/cats/MySignLink/dictionary/html/pages/"+word.toLowerCase()+".htm'/></div></div>";
-				
+	document.getElementById("imgWrapper").innerHTML = "<div id='aslWrapper'><div style='width:240px; height:200px; text-align:center'><iframe id='iframe-0' frameborder='0' scrolling='no' name='iframe-0' src='http://cats.gatech.edu/cats/MySignLink/dictionary/html/pages/"+word.toLowerCase()+".htm'/></div></div>";
+         
 	document.getElementById('imgWrapper').style.display = 'block';
 	document.getElementById('iframe-0').style.display = 'none';
-				
-	var iframe = document.getElementById("iframe-0");
+        $('#aslWrapper').append("<div class='fullviewbutton'><a target='_blank' href='http://cats.gatech.edu/cats/MySignLink/dictionary/html/pages/"+word.toLowerCase()+".htm'>Full Page View</a></div>");
+        
+	
+        var iframe = document.getElementById("iframe-0");
 	var loadImg = document.createElement('img');
 	var imgWrap = document.getElementById("imgWrapper");
 	loadImg.setAttribute('id', 'loadImg');

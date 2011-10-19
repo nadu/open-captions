@@ -15,6 +15,9 @@ function searchAndPrint($searchTerms = 'sesame street')
     $query->setSafeSearch('moderate');
     $query->setVideoQuery($searchTerms);
     $query->setParam('caption', 'true');
+    $query->setParam('start-index', $_GET['start_index']);
+    $query->setParam('max-results',8);
+    
     //$query->setParam('max-results','2');
     // Note that we need to pass the version number to the query URL function
     // to ensure backward compatibility with version 1 of the API.

@@ -18,16 +18,4 @@
     else{
 	echo "word is not set #fail";
     }
-   /* 
-    function doCurl($u){
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $u );
-        curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-        $result = curl_exec( $curl );
-        //echo $result;
-        if(curl_getinfo($curl, CURLINFO_HTTP_CODE) == 404)
-            $result = 404;
-        curl_close($curl);
-        return $result;
-    }*/		
 ?>
