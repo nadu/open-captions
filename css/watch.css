@@ -107,6 +107,9 @@
     margin-top:-96px;
     margin-left:128px;
     *display:inline;
+    *width:600px;
+    *margin-left:-625px;
+    *margin-top:405px; 
     
 }
 /*#captionsContainer{
@@ -142,6 +145,7 @@
     top:-34px;
     left:200px;
     display:none;
+    *top:-29px;
 }
 #previous.enabled{
     background-color: #D14836;/* #F5F5F5;*/

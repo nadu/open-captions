@@ -55,6 +55,8 @@ body{
     padding: 0 8px;
     text-align: center;
     width: 15%;
+    *margin-top:-33px;
+    *margin-right:92px;
 }
 #resultscontainer{
     margin-top:50px;        
@@ -155,7 +157,7 @@ p.videoresultowner{
 }
 .social .fb{
     display:inline-block;
-    vertical-align:4px;
+    vertical-align:3px;
 }
 .info a{
     color: #666;
