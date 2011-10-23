@@ -11,7 +11,7 @@
 	        //echo $result;	
 		if($result == 404) {
                         // make a call to the BING Api and return the thumbnail 
-                        $url = "http://api.bing.net/json.aspx?AppId=931819FFE27ADFDAF97F4C529CF7EC4B47C5F83B&Query=".$word."&Sources=Image&Version=2.0&Market=en-us&Adult=Moderate&Image.Count=1&Image.Offset=0";
+                        $url = "http://api.bing.net/json.aspx?AppId=931819FFE27ADFDAF97F4C529CF7EC4B47C5F83B&Query=".$word."&Sources=Image&Version=2.0&Market=en-us&Adult=strict&Image.Count=1&Image.Offset=0";
                         $result = doCurl($url);
                         if(result == 404){
                             echo 'error';
