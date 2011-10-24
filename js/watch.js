@@ -64,7 +64,7 @@ function showAppropriateCaptions(){
 		//push the closest time captions to createBeautifulCaptions
                 
                 // hacky way of handling when to show and hide the captions and the previous button. Have to find a better way to do it
-                $('.myCaptionSpan').show();
+                $('.mycaption').show();
                 $('#previous').show();
 
 		for(i=0;i<len;i++){
@@ -75,7 +75,7 @@ function showAppropriateCaptions(){
 			}
 			if(currTime > global_full_captions[len-1].startTime + global_full_captions[len-1].duration){
 			    // it has ended, no more captions to show
-                            $('.myCaptionSpan').hide();
+                            $('.mycaption').hide();
                             //console.log("run after the captions have ended");
                             $("#previous").removeClass('enabled');
                             $("#previous").attr("disabled",true);
@@ -90,7 +90,7 @@ function showAppropriateCaptions(){
                                 //console.log("now its time to create beautiful captions");
 				createBeautifulCaptions(global_full_captions[len-1].captions);
 				//console.log("after finding",global_full_captions[i].startTime,currTime,global_full_captions[i+1].startTime);
-                                //setTimeout(function(){$('.myCaptionSpan').hide();},global_full_captions[i].duration*1000);
+                                //setTimeout(function(){$('.mycaption').hide();},global_full_captions[i].duration*1000);
         			setTimeout(showAppropriateCaptions,global_full_captions[len-1].duration*1000);
                                         
 				return;
@@ -105,7 +105,7 @@ function showAppropriateCaptions(){
                                 //console.log("now its time to create beautiful captions");
 				createBeautifulCaptions(global_full_captions[i].captions);
 				//console.log("after finding",global_full_captions[i].startTime,currTime,global_full_captions[i+1].startTime);
-                                //setTimeout(function(){$('.myCaptionSpan').hide();},global_full_captions[i].duration*1000);
+                                //setTimeout(function(){$('.mycaption').hide();},global_full_captions[i].duration*1000);
         			setTimeout(showAppropriateCaptions, 
                                             Math.abs(global_full_captions[i+1].startTime - global_full_captions[i].startTime)*1000);
                                         
@@ -124,7 +124,7 @@ function init(){
 	
 function getPreviousCaption(){
 	var prevCaptionsArray = prevCaptions.split(" ");
-	$('.myCaptionSpan').html("");
+	$('.mycaption').html("");
 	createBeautifulCaptionElements(prevCaptionsArray);
 	my_ytPlayer.pauseVideo();
 	//console.log(prevCaptionsArray);
@@ -137,17 +137,17 @@ function createBeautifulCaptions(captions){
 	//split, add CSS, push into InnerHTML
 	captions = captions.replace("\n"," "); // replacing new lines with space 	
 	var captionsArray = captions.split(" "),
-		len = captionsArray.length,
-		i, 
-		beautifulCaptions = "";
-		beautifulCaptionsSpan = new Array();
+            len = captionsArray.length,
+	    i, 
+	    beautifulCaptions = "";
+	    beautifulCaptionsSpan = new Array();
 	if(tmpCaptions !== captions){
-		//console.log(prevCaptions, "***", captions);
-		prevCaptions = tmpCaptions;
-		tmpCaptions = captions; // storing it for later use only if it has changed
-		
-		$('.myCaptionSpan').html("") ;
-		beautifulCaptionsSpan = createBeautifulCaptionElements(captionsArray);
+	    //console.log(prevCaptions, "***", captions);
+	    prevCaptions = tmpCaptions;
+	    tmpCaptions = captions; // storing it for later use only if it has changed
+	    
+	    $('.mycaption').html("") ;
+	    beautifulCaptionsSpan = createBeautifulCaptionElements(captionsArray);
 	}
 	
 }
@@ -159,12 +159,12 @@ function createBeautifulCaptionElements(a){
     for(i=0;i<len;i++){
         beautifulCaptionsSpan[i] = document.createElement('span');
 	beautifulCaptionsSpan[i].innerHTML = a[i];
-	beautifulCaptionsSpan[i].className += " " + 'beautifulCaptions';
+	//beautifulCaptionsSpan[i].className += " " + 'beautifulCaptions';
 	beautifulCaptionsSpan[i].id =  'beautifulCaptions' + i;
-	$('.myCaptionSpan').append(beautifulCaptionsSpan[i]);
+	$('.mycaption').append(beautifulCaptionsSpan[i]);
 	$('#beautifulCaptions'+i).click((function(w,i){
                                              return function(){
-                				        showASL(w,i);
+                   				        showASL(w,i);
 		        		    }}(a[i],i)));
 	}
 	//console.log(beautifulCaptionsSpan);
@@ -172,7 +172,7 @@ function createBeautifulCaptionElements(a){
 }
 	
 function addSelectedClass(i){
-    $('.beautifulCaptions').each(function() {
+    $('.mycaption span').each(function() {
         if($(this).hasClass("selectedCaption"))
 	    $(this).removeClass("selectedCaption");
 	});
