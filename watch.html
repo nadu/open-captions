@@ -43,7 +43,7 @@
 	 </div>
 	  <script type="text/javascript">
 		var videoId = window.location.hash.split('=')[1]; 
-		var params = { allowScriptAccess: "always" ,wmode:"transparent"};//transparent value to wmode helps to overlay captions on the flash video
+		var params = {cc_load_policy:-1, allowScriptAccess: "always" ,wmode:"transparent"};//transparent value to wmode helps to overlay captions on the flash video
 		var atts = { id:videoId}
 		swfobject.embedSWF("http://www.youtube.com/e/"+videoId+"?&cc_load_policy=0&enablejsapi=1&playerapiid="+videoId,
 						   "ytapiplayer", "650", "500", "8", null, null, params, atts);
@@ -82,7 +82,7 @@
    </div>
 
     <div class='info'>
-        <a href="http://www.naduism.com/?p=108" id='about'>About Open-Captions</a>
+        <a href="http://www.naduism.com/2011/10/23/open-captions/" id='about'>About Open-Captions</a>
         <a href="mailto:narayanan.ramakrishnan@gmail.com">Contact</a>
     </div>
 </div>
