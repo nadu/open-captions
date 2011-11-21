@@ -19,6 +19,5 @@ function init(){
                         if(evnt.keyCode == 13)
                             showSearchResults();
                         });
- //   $('#about').click(function(){$("#aboutmodal").modal({opacity:10,position: ["60%","60%"]});});
-
+ 
 }
